@@ -1,50 +1,51 @@
 
 # Tính sơ bộ dây dẫn, cột, móng đường dây 110kV–500kV
 
-Ứng dụng Python giao diện Streamlit để tính nhanh:
-- Dòng tải và chọn dây dẫn sơ bộ.
-- Tổn thất điện áp sơ bộ.
-- Số khoảng cột, số cột sơ bộ.
-- Khối lượng thép cột.
-- Khối lượng móng, bê tông, cốt thép, bu lông neo, tiếp địa.
-- BOQ tổng hợp và xuất Excel.
+Bản cập nhật có thêm logic **đấu nối transit / cắt xen trên đường dây hiện trạng**.
+
+## Điểm mới
+
+- Có trường chọn kiểu đấu nối:
+  - Đấu nối mới
+  - Transit / cắt xen trên ĐD hiện trạng
+- Có vùng nhập đường dây hiện trạng:
+  - Cấp điện áp hiện trạng
+  - Dây hiện trạng
+  - Số mạch hiện trạng
+  - Số dây/bó/pha hiện trạng
+- Nếu chọn Transit, BOQ sẽ ưu tiên dùng dây hiện trạng thay vì dây chọn tự động.
+- Có tab `00. Transit` để kiểm dòng tải, tiết diện và đồng bộ cấu hình.
+- Có RFI riêng cho phương án transit.
 
 ## Cách chạy trên Mac
 
-### 1. Cài Python
-Khuyến nghị Python 3.10 trở lên.
-
-Kiểm tra:
 ```bash
-python3 --version
+cd duong_day_calc_app_transit
+chmod +x run_mac.sh
+./run_mac.sh
 ```
 
-### 2. Tạo môi trường ảo
+Hoặc:
+
 ```bash
-cd duong_day_calc_app
+cd duong_day_calc_app_transit
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-### 3. Cài thư viện
-```bash
 pip install -r requirements.txt
-```
-
-### 4. Chạy app
-```bash
 streamlit run app.py
 ```
 
-Sau đó trình duyệt sẽ mở giao diện tại:
-```text
-http://localhost:8501
-```
+## Deploy Streamlit Cloud
 
-## Lưu ý kỹ thuật
+Upload các file sau lên GitHub repository:
 
-Đây là công cụ tính sơ bộ/BOQ/check logic. Không thay thế:
-- PLS-CADD, PLS-TOWER, PLS-POLE.
-- Phụ lục tính toán cơ lý dây.
-- Tính toán kết cấu cột/móng chính thức.
-- Hồ sơ thiết kế TKKT/TKBVTC được phê duyệt.
+- app.py
+- requirements.txt
+- README.md
+- run_mac.sh
+
+Sau đó deploy trên Streamlit Cloud với `Main file path = app.py`.
+
+## Lưu ý
+
+Đây là công cụ estimate/check BOQ sơ bộ. Không thay thế hồ sơ thiết kế chính thức.
